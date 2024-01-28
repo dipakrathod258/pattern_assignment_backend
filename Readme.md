@@ -5,6 +5,7 @@ This project is a backend for the given technical assignment. It is built using 
 ### Technologies Used:
 - FastAPI
 - PyMongo(MongoDB)
+- OpenAI model using APIs
 
 ### API Workflow:
 - API request received then first thing checked in route match in src.api.api.py
@@ -13,6 +14,7 @@ This project is a backend for the given technical assignment. It is built using 
 - Controllers routes request to service where the following sequence of events are happening:
   - Make Request to Amazon Rainforest using ASIN Number
   - Receive API response from Amazon Rainforest and dump into MongoDB
+  - Calls OPENAI API Service & summarises the reviews
   - Prepare the final response to be returned
   - Return the API response
 
@@ -24,7 +26,7 @@ This project is a microservice that provides REST APIs. The service makes sure t
 ### What can be improved?
 - The product reviews can be read from MongoDB collection instead of Amazon Rainforest as the vendor API is taking time in returning us the response.
 - We can create "Celery" background service which keeps on pulling the data from Amazon Rainforest API and "UPSERT" in our MongoDB database. Then we can create all our API where source of data would be just MongoDB
-- We can keep the API Access Token on AWS Secrete Manager and access it from there instead of hard coding in the codebase
+- We can keep the API Access Token & OPENAPI API KEY on AWS Secrete Manager and access it from there instead of hard coding in the codebase
 
 ### To setup project on your local
 
