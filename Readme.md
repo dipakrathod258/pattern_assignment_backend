@@ -49,3 +49,15 @@ Go to your browser and checks the Swagger UI on http://localhost:8000/docs
  - API Endpoints
  - Request Payload of APIs
  - Response details of API if you run APIs from this UI
+
+Some Screenshots:
+
+##### Data pulled from Amazon Rainforest saved to MongoDB:
+
+![alt text](https://github.com/dipakrathod258/pattern_assignment_backend/blob/main/src/assets/documentation_images/amazon_rainforest_api_data_pulled.png?raw=true)
+
+
+##### OPENAI API Invalid KEY Error:
+
+![alt text](https://github.com/dipakrathod258/pattern_assignment_backend/blob/main/src/assets/documentation_images/openai_api_invalid_key_error.png?raw=true)
+
