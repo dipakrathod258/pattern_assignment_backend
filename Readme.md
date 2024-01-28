@@ -61,3 +61,6 @@ Some Screenshots:
 
 ![alt text](https://github.com/dipakrathod258/pattern_assignment_backend/blob/main/src/assets/documentation_images/product_review_summary_saved_to_mongo.png?raw=true)
 
+##### Backend APIs:
+
+![alt text](https://github.com/dipakrathod258/pattern_assignment_backend/blob/main/src/assets/documentation_images/fastapi_swagger_apis.png?raw=true)
