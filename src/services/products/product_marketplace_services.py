@@ -1,11 +1,15 @@
+import time
+
 from config.http_configs import HttpStatusCodes
 from config.product_config import AmazonRainforestConfig
 from connections.mongo_connections import insert_doc_to_mongodb
 from response_builder.product_responses.product_reviews_response import get_product_review_response
-from services.products.constants import ProductAPIConfig, ProductReviewMongodbConfig
+from services.products.constants import ProductAPIConfig, ProductReviewMongodbConfig, ProductReviewSummaryMongodbConfig
 
 import requests
 import logging
+
+from src.services.products.openai_service import summarise_product_reviews
 
 
 def make_request_amazon_rainforest(asi_number):
@@ -40,6 +44,8 @@ def get_product_reviews(request_payload):
     try:
         logging.info(f"#src #services #products #product_marketplace_services #get_product_reviews request_payload: "
                      f"{request_payload}")
+        # time.sleep(5)
+        # return {"status_code": 200, "data": []}
 
         asi_number = request_payload.asi_number
         logging.info(f"#src #services #products #product_marketplace_services #get_product_reviews asi_number: "
@@ -71,3 +77,31 @@ def get_product_reviews(request_payload):
                       f"for ASIN Number: {request_payload.asi_number}")
         return {"status_code": HttpStatusCodes.HTTP_500_INTERNAL_SERVER_ERROR, "error_message": "Server Error. Please"
                                                                                                 " Contact Admin"}
+
+
+def get_product_summarised_reviews(request_payload):
+    """This function acceps ASIN Numbers pf the product -> calls Amamzon API & gets product details -> summarises
+    customer reviews and returns it"""
+    try:
+        logging.info(
+            f"#src #services #products #product_marketplace_services #get_product_reviews request_payload: "
+            f"request_payload STARTS...")
+
+        response = get_product_reviews(request_payload)
+        product_reviews = response['data']
+        product_review_summary = summarise_product_reviews(product_reviews)
+        asi_number = request_payload.asi_number
+        mongodb_doc = {
+            "product_asin": asi_number,
+            "product_review_summary": product_review_summary
+        }
+        doc_inserted_id = insert_doc_to_mongodb(ProductReviewSummaryMongodbConfig.MONGODB_NAME,
+                                                ProductReviewSummaryMongodbConfig.MONGODB_COLLECTION_NAME, mongodb_doc)
+        logging.info(
+            f"#src #services #products #product_marketplace_services #get_product_reviews doc_inserted_id: "
+            f"{doc_inserted_id} for ASIN: {asi_number}")
+
+        return {"status_code": HttpStatusCodes.HTTP_200_SUCCESS, "data": mongodb_doc}
+    except Exception as err:
+        logging.error(f"#src #services #products #product_marketplace_services #get_product_summarised_reviews ERROR: "
+                      f"{str(err)} for ASIN Number: {request_payload.asi_number}")
