@@ -57,7 +57,7 @@ Some Screenshots:
 ![alt text](https://github.com/dipakrathod258/pattern_assignment_backend/blob/main/src/assets/documentation_images/amazon_rainforest_api_data_pulled.png?raw=true)
 
 
-##### OPENAI API Invalid KEY Error:
+##### Product Review Summarised using OPENAI is saved to MongoDB:
 
-![alt text](https://github.com/dipakrathod258/pattern_assignment_backend/blob/main/src/assets/documentation_images/openai_api_invalid_key_error.png?raw=true)
+![alt text](https://github.com/dipakrathod258/pattern_assignment_backend/blob/main/src/assets/documentation_images/product_review_summary_saved_to_mongo.png?raw=true)
 
